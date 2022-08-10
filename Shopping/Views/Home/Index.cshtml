@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Shopping.Models.tProduct>
+
+@{
+    ViewBag.Title = "Trang Chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <style>
+        .card {
+            width: 250px;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+            .card:hover {
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
+
+        #margin-card {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<h2>Sản Phẩm</h2>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-6 col-md-4 col-lg-3" id="margin-card">
+                <div class="card">
+                    @Html.DisplayFor(model => item.pName)
+                    <br />
+                    Giá: @Html.DisplayFor(model => item.pPrice)$
+                    <a href = "/ShoppingCart/AddToCart/@item.pID">
+                        <img src="@Url.Content("~/Content/Cart.png")" style="width:30px;height:30px" />
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

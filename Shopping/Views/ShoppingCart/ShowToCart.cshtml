@@ -1,0 +1,69 @@
+﻿@model Shopping.Models.Cart
+
+@{
+    ViewBag.Title = "Giỏ Hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Giỏ Hàng</h2>
+
+
+@if (Model != null)
+{
+    int dem = 1;
+    <table class="table">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên Sản Phẩm</th>
+                <th>Đơn Giá</th>
+                <th>Số Lượng</th>
+                <th>Tổng</th>
+                <th>Trạng Thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {                
+                int total = item._product.pPrice.Value * item._amount;
+                <tr>
+                    <td>@dem</td>
+                    <td>@Html.DisplayFor(model => item._product.pName)</td>
+                    <td>@Html.DisplayFor(model => item._product.pPrice)</td>
+                    <td>
+                        @using (Html.BeginForm("UpdateAmount", "ShoppingCart"))
+                        {
+                            <input type="hidden" value="@item._product.pID" name="idProduct" />
+                            <input type="number" value="@item._amount$" name="fAmount" />
+                            <input type="submit" value="Cập Nhật" />
+                        }
+                    </td>
+                    <td>@total</td>
+                    <td>
+                        <a href="/ShoppingCart/RemoveCart/@item._product.pID">Xóa khỏi giỏ hàng</a>
+                    </td>
+                </tr>
+                dem++;
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5" style="text-align:right">
+                    Tổng tiền: @Model.TotalMoney()
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5" style="text-align:right">
+                    @using (Html.BeginForm("CheckOut", "ShoppingCart"))
+                    {
+                        <input type="submit" value="Checkout" class="btn btn-success" />
+                    }
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+}
+
+<div>
+    <a href="@Url.Action("Index", "Home")">Trở lại trang chủ</a>
+</div>

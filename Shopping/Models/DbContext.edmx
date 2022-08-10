@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DB_CartModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tCart">
+          <Key>
+            <PropertyRef Name="cID" />
+          </Key>
+          <Property Name="cID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cPayType" Type="nvarchar" MaxLength="50" />
+          <Property Name="cTotal" Type="int" />
+          <Property Name="cDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tCartDetails">
+          <Key>
+            <PropertyRef Name="ciID" />
+            <PropertyRef Name="ciProduct" />
+          </Key>
+          <Property Name="ciID" Type="int" Nullable="false" />
+          <Property Name="ciProduct" Type="int" Nullable="false" />
+          <Property Name="ciAmount" Type="int" />
+          <Property Name="ciPrice" Type="int" />
+        </EntityType>
+        <EntityType Name="tProduct">
+          <Key>
+            <PropertyRef Name="pID" />
+          </Key>
+          <Property Name="pID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pName" Type="nvarchar" MaxLength="50" />
+          <Property Name="pPrice" Type="int" />
+        </EntityType>
+        <EntityType Name="tUser">
+          <Key>
+            <PropertyRef Name="uID" />
+          </Key>
+          <Property Name="uID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="uFullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="uUsername" Type="varchar" MaxLength="20" />
+          <Property Name="uPassword" Type="varchar" MaxLength="20" />
+          <Property Name="uEmail" Type="varchar" MaxLength="50" />
+          <Property Name="uPhone" Type="varchar" MaxLength="10" />
+          <Property Name="uStatus" Type="bit" />
+        </EntityType>
+        <EntityContainer Name="DB_CartModelStoreContainer">
+          <EntitySet Name="tCart" EntityType="Self.tCart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tCartDetails" EntityType="Self.tCartDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tProduct" EntityType="Self.tProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tUser" EntityType="Self.tUser" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_CartModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tCart">
+          <Key>
+            <PropertyRef Name="cID" />
+          </Key>
+          <Property Name="cID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cPayType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cTotal" Type="Int32" />
+          <Property Name="cDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tCartDetail">
+          <Key>
+            <PropertyRef Name="ciID" />
+            <PropertyRef Name="ciProduct" />
+          </Key>
+          <Property Name="ciID" Type="Int32" Nullable="false" />
+          <Property Name="ciProduct" Type="Int32" Nullable="false" />
+          <Property Name="ciAmount" Type="Int32" />
+          <Property Name="ciPrice" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tProduct">
+          <Key>
+            <PropertyRef Name="pID" />
+          </Key>
+          <Property Name="pID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pPrice" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="DB_CartEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tCarts" EntityType="Self.tCart" />
+          <EntitySet Name="tCartDetails" EntityType="Self.tCartDetail" />
+          <EntitySet Name="tProducts" EntityType="Self.tProduct" />
+          <EntitySet Name="tUsers" EntityType="DB_CartModel.tUser" />
+        </EntityContainer>
+        <EntityType Name="tUser">
+          <Key>
+            <PropertyRef Name="uID" />
+          </Key>
+          <Property Name="uID" Type="Int32" Nullable="false" />
+          <Property Name="uFullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="uUsername" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="uPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="uEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="uPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="uStatus" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_CartModelStoreContainer" CdmEntityContainer="DB_CartEntities">
+          <EntitySetMapping Name="tCarts">
+            <EntityTypeMapping TypeName="DB_CartModel.tCart">
+              <MappingFragment StoreEntitySet="tCart">
+                <ScalarProperty Name="cDate" ColumnName="cDate" />
+                <ScalarProperty Name="cID" ColumnName="cID" />
+                <ScalarProperty Name="cPayType" ColumnName="cPayType" />
+                <ScalarProperty Name="cTotal" ColumnName="cTotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tCartDetails">
+            <EntityTypeMapping TypeName="DB_CartModel.tCartDetail">
+              <MappingFragment StoreEntitySet="tCartDetails">
+                <ScalarProperty Name="ciID" ColumnName="ciID" />
+                <ScalarProperty Name="ciProduct" ColumnName="ciProduct" />
+                <ScalarProperty Name="ciAmount" ColumnName="ciAmount" />
+                <ScalarProperty Name="ciPrice" ColumnName="ciPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tProducts">
+            <EntityTypeMapping TypeName="DB_CartModel.tProduct">
+              <MappingFragment StoreEntitySet="tProduct">
+                <ScalarProperty Name="pID" ColumnName="pID" />
+                <ScalarProperty Name="pName" ColumnName="pName" />
+                <ScalarProperty Name="pPrice" ColumnName="pPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tUsers">
+            <EntityTypeMapping TypeName="DB_CartModel.tUser">
+              <MappingFragment StoreEntitySet="tUser">
+                <ScalarProperty Name="uStatus" ColumnName="uStatus" />
+                <ScalarProperty Name="uPhone" ColumnName="uPhone" />
+                <ScalarProperty Name="uEmail" ColumnName="uEmail" />
+                <ScalarProperty Name="uPassword" ColumnName="uPassword" />
+                <ScalarProperty Name="uUsername" ColumnName="uUsername" />
+                <ScalarProperty Name="uFullName" ColumnName="uFullName" />
+                <ScalarProperty Name="uID" ColumnName="uID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

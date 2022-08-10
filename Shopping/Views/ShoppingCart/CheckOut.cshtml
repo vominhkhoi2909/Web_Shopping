@@ -1,0 +1,47 @@
+﻿@model Shopping.Models.Cart
+
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CheckOut</h2>
+
+
+@using (Html.BeginForm("Pay", "ShoppingCart"))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3" id="margin-card">
+                <div class="card">
+                    @Html.RadioButton("ThanhToan", "PayPal")
+                    <img src="@Url.Content("~/Content/atm.png")" style="width:70px;height:70px;margin-top:-10px; margin-left:5px" />
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3" id="margin-card">
+                <div class="card">
+                    @Html.RadioButton("ThanhToan", "Visa Cash")
+                    <img src="@Url.Content("~/Content/visa.png")" style="width: 70px; height: 50px; margin-left: 5px" />
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3" id="margin-card">
+                <div class="card">
+                    @Html.RadioButton("ThanhToan", "Tiền Mặt")
+                    <img src="@Url.Content("~/Content/money.png")" style="width: 70px; height: 70px; margin-left: 5px" />
+                </div>
+            </div>
+            <div>
+                <hr />  <hr />
+            </div>
+            <div class="row">
+                <div>
+                    <input type="submit" value="Thanh Toán" class="btn btn-success" /> |
+                    <a href="@Url.Action("ShowToCart","ShoppingCart")">
+                        Trở lại giỏ hàng
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

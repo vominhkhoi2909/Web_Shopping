@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Shopping.Models.tCartDetail>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chi Tiết Hóa Đơn</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("STT")
+        </th>
+        <th>
+            @Html.DisplayName("Tên Sản Phẩm")
+        </th>
+        <th>
+            @Html.DisplayName("Số Lượng")
+        </th>
+        <th>
+            @Html.DisplayName("Thành TIền")
+        </th>
+    </tr>
+
+@{int dem = 1;}
+@foreach (var item in Model) {
+    int total = Convert.ToInt32(item.ciPrice * item.ciAmount);
+    <tr>
+        <td>
+            @dem
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ciProduct)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ciAmount)
+        </td>
+        <td>
+            @total
+        </td>
+    </tr>
+    dem++;
+}
+
+</table>
+
+<div>
+    <a href="@Url.Action("Index", "History")">Trở lại danh sách</a>
+</div>
